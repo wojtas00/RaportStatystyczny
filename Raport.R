@@ -1,26 +1,74 @@
+# Wczytanie bazy danych
 library(eurostat)
-dat <- get_eurostat("tps00002", type = "code", filters = "none", time_format = "num")
+library(dplyr)
+dat = get_eurostat("tps00002", type = "code", filters = "none", time_format = "num")
+dat = filter(dat, geo != "EU27_2020", geo != "EA19", geo != "EL")  
 head(dat)
+
+# Ogolne dane przegladowe o dataset
 label_eurostat_vars(dat)
 str(dat)
 summary(dat)
 
--c("EU27_2020", "EA19", "EL")
-dat$geo <- substr(dat$geo)
 
-library(dplyr)
-dat = filter(dat, geo != "EU27_2020", geo != "EA19", geo != "EL")  
-
-EU2020 = filter(dat, time == 2020-01-01)
+# Rok 2020
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
 
 
+# Rok 2030
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 200), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
 
-library(knitr)
-library(rvest)
 
-kable(head(dat))
-dat2$time
-dat2 <- get_eurostat("tps00002", type = "code", filters = list(geo = c("PL", "CZ"), time = 2019), time_format = "num")
-dat3 = subset(dat2, time == 2019)
 
-kable(dat2)
+# Rok 2040
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
+
+
+# Rok 2050
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
+
+
+
+# Rok 2060
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
+
+
+
+# Rok 2070
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
+
+
+
+
+# Rok 2080
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
+
+
+
+
+# Rok 2090
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
+
+
+
+
+# Rok 2100
+dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2020 = filter(dat2020, sex == "T")
