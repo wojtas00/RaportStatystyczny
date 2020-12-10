@@ -65,10 +65,21 @@ dat2090 = get_eurostat("tps00002", type = "code", filters = list(time = 2090), t
 dat2090 = filter(dat2090, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2090 = filter(dat2090, sex == "T")
 
-
+class(dat2020)
 
 
 # Rok 2100
 dat2100 = get_eurostat("tps00002", type = "code", filters = list(time = 2100), time_format = "num")
 dat2100 = filter(dat2100, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2100 = filter(dat2100, sex == "T")
+
+
+# procentowy wzrost 2020/2050
+pop_2020 = dat2020$values
+kraj_id = dat2020$geo
+id_pop = cbind(kraj_id, pop_2020)
+
+pop_2050 = dat2050$values
+
+roznica_procen_20_50 = round(100 - (pop_2020/pop_2050 * 100), 2)
+a = cbind(kraj_id, roznica_procen_20_50)
