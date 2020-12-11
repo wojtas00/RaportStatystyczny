@@ -32,6 +32,7 @@ dat2050 = get_eurostat("tps00002", type = "code", filters = list(time = 2050), t
 dat2050 = filter(dat2050, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2050 = filter(dat2050, sex == "T")
 
+
 # Rok 2060
 dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), time_format = "num")
 dat2060 = filter(dat2060, geo != "EU27_2020", geo != "EA19", geo != "EL")
@@ -65,9 +66,11 @@ kraj_id = dat2020$geo
 # procentowy wzrost 2020/2060
 pop_2020 = dat2020$values
 pop_2060 = dat2060$values
-zmiana20_60 = round(100 - (pop_2020/pop_2060 * 100), 2)
-test = data.frame(dat2050$geo, zmiana20_60)
-test
+zmiana20_60 = round(100 - (pop_2060/pop_2020 * 100), 2)
+test = data.frame(dat2060$geo, zmiana20_60)
+View(test)
+
+
 # wykres wzrost/spadek 2050
 
 library(ggplot2)
@@ -86,21 +89,28 @@ theme_set(theme_bw())
 wykres2050
 
 
-  
+
   sort2050 = arrange(ramka_sp_wzr_20_50.df(as.numeric(sp_wzr_20_50)))
 
 
 
+  
+  
+  
+  
 
 # Ogarnianie zmiany ilosci populacji w danych latach
 
 wyciag_danych = function(x) {
-  z = x$values
-  z = round(sum(z) / 1000000)
-  
+  dane = get_eurostat("tps00002", type = "code", filters = list(time = x), time_format = "num")
+  dane = filter(dane, geo != "EU27_2020", geo != "EA19", geo != "EL")
+  dane = filter(dane, sex == "T")
+  dane = pull(dane, values)
+  dane = round(sum(dane) / 1000000)
 }
 
-
+lud = wyciag_danych(2020)
+lud
 
 ludnosc_2020 = wyciag_danych(dat2020)
 ludnosc_2030 = wyciag_danych(dat2030)
@@ -137,16 +147,43 @@ ggplot(Liczba_ludnosci, aes(x = Rok, y = populacja)) +
 
 
 
-# 
+# Dane zbiorcze dla Polski
 
 ogarnianie_danych_dla_Polski = function(x) {
   dane = get_eurostat("tps00002", type = "code", filters = list(time = x), time_format = "num")
   dane = filter(dane, geo != "EU27_2020", geo != "EA19", geo != "EL")
   dane = filter(dane, geo == "PL")
   dane = filter(dane, sex == "T")
+  dane = pull(dane, values)
+  dane = round(dane / 1000000)
 }
 
-Ludnosc_2020_Pol= ogarnianie_danych(2020)
-Ludnosc_2020_Pol
+Ludnosc_2020_Pol = ogarnianie_danych_dla_Polski(2020)
+Ludnosc_2030_Pol = ogarnianie_danych_dla_Polski(2030)
+Ludnosc_2040_Pol = ogarnianie_danych_dla_Polski(2040)
+Ludnosc_2050_Pol = ogarnianie_danych_dla_Polski(2050)
+Ludnosc_2060_Pol = ogarnianie_danych_dla_Polski(2060)
+Ludnosc_2070_Pol = ogarnianie_danych_dla_Polski(2070)
+Ludnosc_2080_Pol = ogarnianie_danych_dla_Polski(2080)
+Ludnosc_2090_Pol = ogarnianie_danych_dla_Polski(2090)
+Ludnosc_2100_Pol = ogarnianie_danych_dla_Polski(2100)
 
+Dane_Polski = data.frame(Rok = c(2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100),
+                         Populacja = c(Ludnosc_2020_Pol, Ludnosc_2030_Pol, Ludnosc_2040_Pol, Ludnosc_2050_Pol, Ludnosc_2060_Pol, Ludnosc_2070_Pol, Ludnosc_2080_Pol, Ludnosc_2090_Pol, Ludnosc_2100_Pol))
+
+# Wykres
+
+ggplot(Dane_Polski, aes(x = Rok, y = Populacja)) +
+  geom_line(stat = "identity", colour = "lightblue", size = 2) +
+  scale_y_continuous(limits = c(10, 60),
+                     breaks = c(15, 30)) +
+  labs(title = "Zmiana liczby ludnosci w Europie w latach 2020-2100",
+       y = "Populacja w milionach") +
+  theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.title = element_text(size = 12),
+        plot.title = element_text(size = 18, hjust = 0.5)) +
+  geom_point(aes(x = Rok, y = Populacja)) + 
+  geom_text(aes(label = Populacja), hjust = 0.5, vjust = -1)
 
