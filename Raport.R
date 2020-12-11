@@ -36,9 +36,9 @@ dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), t
 dat2060 = filter(dat2060, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2060 = filter(dat2060, sex == "T")
 # Rok 2070
-dat2070 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
-dat2070 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2070 = filter(dat2020, sex == "T")
+dat2070 = get_eurostat("tps00002", type = "code", filters = list(time = 2070), time_format = "num")
+dat2070 = filter(dat2070, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dat2070 = filter(dat2070, sex == "T")
 # Rok 2080
 dat2080 = get_eurostat("tps00002", type = "code", filters = list(time = 2080), time_format = "num")
 dat2080 = filter(dat2080, geo != "EU27_2020", geo != "EA19", geo != "EL")
