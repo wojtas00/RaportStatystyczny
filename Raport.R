@@ -31,8 +31,6 @@ dat2040 = filter(dat2040, sex == "T")
 dat2050 = get_eurostat("tps00002", type = "code", filters = list(time = 2050), time_format = "num")
 dat2050 = filter(dat2050, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2050 = filter(dat2050, sex == "T")
-
-
 # Rok 2060
 dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), time_format = "num")
 dat2060 = filter(dat2060, geo != "EU27_2020", geo != "EA19", geo != "EL")
@@ -54,50 +52,62 @@ dat2100 = get_eurostat("tps00002", type = "code", filters = list(time = 2100), t
 dat2100 = filter(dat2100, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2100 = filter(dat2100, sex == "T")
 
-
-# procentowy wzrost 2020/2100
-pop_2100 = dat2100$values
-sp_wzr_20_100 = round(100 - (pop_2020/pop_2100 * 100), 2)
-ramka_sp_wzr_20_100 = cbind(kraj_id, sp_wzr_20_100)
+#########################################################
 
 
+# procentowy wzrost/spadek 2020/2060
 kraj_id = dat2020$geo
-
-# procentowy wzrost 2020/2060
 pop_2020 = dat2020$values
 pop_2060 = dat2060$values
-zmiana20_60 = round(100 - (pop_2060/pop_2020 * 100), 2)
-test = data.frame(dat2060$geo, zmiana20_60)
-View(test)
+zmiana20_60 = round(100 - (pop_2020/pop_2060 * 100), 2)
+test = data.frame(kraj_id, zmiana20_60)
+sort2060 = arrange(test,(zmiana20_60))
+sort2060
 
 
-# wykres wzrost/spadek 2050
-
-library(ggplot2)
+# wykres wzrost/spadek 2020/2060
 theme_set(theme_bw())
 
-  wykres2050 = ggplot(ramka_zmiana20_50, aes(x=kraj_id, y=zmiana20_50, label=zmiana20_50)) + 
-  geom_point(stat='identity', fill="black")  +
+wykres2060 = ggplot(sort2060, aes(x = reorder(`kraj_id`, zmiana20_60), 
+                                  y=zmiana20_60, label=zmiana20_60)) + 
+  geom_point(stat='identity', fill="black", size = 8)  +
   geom_segment(aes(y = 0, 
-                   x = kraj_id, 
-                   yend = zmiana20_50, 
-                   xend = kraj_id), 
+                   x = `kraj_id`, 
+                   yend = zmiana20_60, 
+                   xend = `kraj_id`), 
+                color = "black") +
+  geom_text(color="white", size=2) +
+  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
+       subtitle = "Prognoza dla poszczególnych krajów") + 
+  coord_flip()
+
+wykres2060
+
+
+# procentowy wzrost/spadek 2020/2100
+pop_2100 = dat2100$values
+zmiana20_100 = round(100 - (pop_2020/pop_2100 * 100), 2)
+test = data.frame(kraj_id, zmiana20_100)
+sort2100 = arrange(test,(zmiana20_100))
+sort2100
+
+
+# wykres wzrost/spadek 2020/2100
+wykres2100 = ggplot(sort2100, aes(x = reorder(`kraj_id`, zmiana20_100), 
+                                  y=zmiana20_100, label=zmiana20_100)) + 
+  geom_point(stat='identity', fill="black", size = 8)  +
+  geom_segment(aes(y = 0, 
+                   x = `kraj_id`, 
+                   yend = zmiana20_100, 
+                   xend = `kraj_id`), 
                color = "black") +
   geom_text(color="white", size=2) +
-  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2050") + 
+  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
+       subtitle = "Prognoza dla poszczególnych krajów") + 
   coord_flip()
-wykres2050
 
+wykres2100
 
-
-  sort2050 = arrange(ramka_sp_wzr_20_50.df(as.numeric(sp_wzr_20_50)))
-
-
-
-  
-  
-  
-  
 
 # Ogarnianie zmiany ilosci populacji w danych latach
 
