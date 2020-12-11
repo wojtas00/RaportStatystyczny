@@ -31,12 +31,7 @@ dat2040 = filter(dat2040, sex == "T")
 dat2050 = get_eurostat("tps00002", type = "code", filters = list(time = 2050), time_format = "num")
 dat2050 = filter(dat2050, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2050 = filter(dat2050, sex == "T")
-<<<<<<< HEAD
-x = mutate(dat2050, wartosc)
-x
 
-=======
->>>>>>> b6149243d5a181fdb1097192ebc9ae33eb14b4b1
 # Rok 2060
 dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), time_format = "num")
 dat2060 = filter(dat2060, geo != "EU27_2020", geo != "EA19", geo != "EL")
@@ -67,12 +62,11 @@ ramka_sp_wzr_20_100 = cbind(kraj_id, sp_wzr_20_100)
 
 kraj_id = dat2020$geo
 
-# procentowy wzrost 2020/2050
+# procentowy wzrost 2020/2060
 pop_2020 = dat2020$values
-pop_2050 = dat2050$values
-zmiana20_50 = round(100 - (pop_2020/pop_2050 * 100), 2)
-ramka_zmiana20_50 = as.data.frame(cbind(kraj_id, zmiana20_50))
-
+pop_2060 = dat2060$values
+zmiana20_60 = round(100 - (pop_2020/pop_2060 * 100), 2)
+test = data.frame(dat2050$geo, zmiana20_60)
 
 # wykres wzrost/spadek 2050
 
@@ -98,10 +92,61 @@ wykres2050
 
 
 
+# Ogarnianie zmiany ilosci populacji w danych latach
+
+wyciag_danych = function(x) {
+  z = x$values
+  z = round(sum(z) / 1000000)
+  
+}
 
 
 
+ludnosc_2020 = wyciag_danych(dat2020)
+ludnosc_2030 = wyciag_danych(dat2030)
+ludnosc_2040 = wyciag_danych(dat2040)
+ludnosc_2050 = wyciag_danych(dat2050)
+ludnosc_2060 = wyciag_danych(dat2060)
+ludnosc_2070 = wyciag_danych(dat2070)
+ludnosc_2080 = wyciag_danych(dat2080)
+ludnosc_2090 = wyciag_danych(dat2090)
+ludnosc_2100 = wyciag_danych(dat2100)
+
+Liczba_ludnosci = data.frame(Rok = c(2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100),
+                             populacja = c(ludnosc_2020, ludnosc_2030,ludnosc_2040, ludnosc_2050, ludnosc_2060, ludnosc_2070, ludnosc_2080, ludnosc_2090, ludnosc_2100))
+
+Liczba_ludnosci
+
+# Wykres
+
+library(ggplot2)
+
+ggplot(Liczba_ludnosci, aes(x = Rok, y = populacja)) +
+  geom_line(stat = "identity", colour = "lightblue", size = 2) +
+  scale_y_continuous(limits = c(200, 600),
+                     breaks = c(300, 450, 600)) +
+  labs(title = "Zmiana liczby ludnosci w Europie w latach 2020-2100",
+       y = "Populacja w milionach") +
+  theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.title = element_text(size = 12),
+        plot.title = element_text(size = 18, hjust = 0.5)) +
+  geom_point(aes(x = Rok, y = populacja)) + 
+  geom_text(aes(label=populacja), hjust = 0.5, vjust = -1)
 
 
+
+# 
+
+ogarnianie_danych_dla_Polski = function(x) {
+  dane = get_eurostat("tps00002", type = "code", filters = list(time = x), time_format = "num")
+  dane = filter(dane, geo != "EU27_2020", geo != "EA19", geo != "EL")
+  dane = filter(dane, geo == "PL")
+  dane = filter(dane, sex == "T")
+}
+
+z = ogarnianie_danych(2040)
+z
 
 
