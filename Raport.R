@@ -67,7 +67,7 @@ pop_2020 = dat2020$values
 pop_2060 = dat2060$values
 zmiana20_60 = round(100 - (pop_2020/pop_2060 * 100), 2)
 test = data.frame(dat2050$geo, zmiana20_60)
-
+test
 # wykres wzrost/spadek 2050
 
 library(ggplot2)
@@ -146,7 +146,7 @@ ogarnianie_danych_dla_Polski = function(x) {
   dane = filter(dane, sex == "T")
 }
 
-z = ogarnianie_danych(2040)
-z
+Ludnosc_2020_Pol= ogarnianie_danych(2020)
+Ludnosc_2020_Pol
 
 
