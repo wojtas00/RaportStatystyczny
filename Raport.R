@@ -55,6 +55,11 @@ dat2100 = filter(dat2100, sex == "T")
 #########################################################
 
 
+
+
+
+
+
 # procentowy wzrost/spadek 2020/2060
 kraj_id = dat2020$geo
 pop_2020 = dat2020$values
@@ -69,17 +74,16 @@ sort2060
 theme_set(theme_bw())
 
 wykres2060 = ggplot(sort2060, aes(x = reorder(`kraj_id`, zmiana20_60), 
-                                  y = zmiana20_60 , label = zmiana20_60)) + 
-  geom_point(stat ='identity', fill = "black", size = 8)  +
+                                  y=zmiana20_60, label=zmiana20_60)) + 
+  geom_point(stat='identity', fill="black", size = 8)  +
   geom_segment(aes(y = 0, 
                    x = `kraj_id`, 
                    yend = zmiana20_60, 
                    xend = `kraj_id`), 
                 color = "black") +
-  geom_text(color ="white", size =2) +
-  labs(title = "Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
-       subtitle = "Prognoza dla poszczególnych krajów",
-       y = "Procentowy spsadek/wzrost", x = "Kraj") + 
+  geom_text(color="white", size=2) +
+  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
+       subtitle = "Prognoza dla poszczególnych krajów") + 
   coord_flip()
 
 wykres2060
@@ -95,17 +99,16 @@ sort2100
 
 # wykres wzrost/spadek 2020/2100
 wykres2100 = ggplot(sort2100, aes(x = reorder(`kraj_id`, zmiana20_100), 
-                                  y = zmiana20_100, label = zmiana20_100)) + 
-  geom_point(stat ='identity', fill ="black", size = 8)  +
+                                  y=zmiana20_100, label=zmiana20_100)) + 
+  geom_point(stat='identity', fill="black", size = 8)  +
   geom_segment(aes(y = 0, 
                    x = `kraj_id`, 
                    yend = zmiana20_100, 
                    xend = `kraj_id`), 
                color = "black") +
-  geom_text(color ="white", size=2) +
-  labs(title ="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
-       subtitle = "Prognoza dla poszczególnych krajów",
-       y = "Procentowy spsadek/wzrost", x = "Kraj") + 
+  geom_text(color="white", size=2) +
+  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
+       subtitle = "Prognoza dla poszczególnych krajów") + 
   coord_flip()
 
 wykres2100
@@ -121,18 +124,15 @@ wyciag_danych = function(x) {
   dane = round(sum(dane) / 1000000)
 }
 
-lud = wyciag_danych(2020)
-lud
-
-ludnosc_2020 = wyciag_danych(dat2020)
-ludnosc_2030 = wyciag_danych(dat2030)
-ludnosc_2040 = wyciag_danych(dat2040)
-ludnosc_2050 = wyciag_danych(dat2050)
-ludnosc_2060 = wyciag_danych(dat2060)
-ludnosc_2070 = wyciag_danych(dat2070)
-ludnosc_2080 = wyciag_danych(dat2080)
-ludnosc_2090 = wyciag_danych(dat2090)
-ludnosc_2100 = wyciag_danych(dat2100)
+ludnosc_2020 = wyciag_danych(2020)
+ludnosc_2030 = wyciag_danych(2030)
+ludnosc_2040 = wyciag_danych(2040)
+ludnosc_2050 = wyciag_danych(2050)
+ludnosc_2060 = wyciag_danych(2060)
+ludnosc_2070 = wyciag_danych(2070)
+ludnosc_2080 = wyciag_danych(2080)
+ludnosc_2090 = wyciag_danych(2090)
+ludnosc_2100 = wyciag_danych(2100)
 
 Liczba_ludnosci = data.frame(Rok = c(2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100),
                              populacja = c(ludnosc_2020, ludnosc_2030,ludnosc_2040, ludnosc_2050, ludnosc_2060, ludnosc_2070, ludnosc_2080, ludnosc_2090, ludnosc_2100))
@@ -141,11 +141,10 @@ Liczba_ludnosci
 
 # Wykres
 
-library(ggplot2)
 
 ggplot(Liczba_ludnosci, aes(x = Rok, y = populacja)) +
   geom_line(stat = "identity", colour = "lightblue", size = 2) +
-  scale_y_continuous(limits = c(200, 600),
+  scale_y_continuous(limits = c(300, 550),
                      breaks = c(300, 450, 600)) +
   labs(title = "Zmiana liczby ludnosci w Europie w latach 2020-2100",
        y = "Populacja w milionach") +
@@ -189,7 +188,7 @@ ggplot(Dane_Polski, aes(x = Rok, y = Populacja)) +
   geom_line(stat = "identity", colour = "lightblue", size = 2) +
   scale_y_continuous(limits = c(10, 60),
                      breaks = c(15, 30)) +
-  labs(title = "Zmiana liczby ludnosci w Polsce w latach 2020-2100",
+  labs(title = "Zmiana liczby ludnosci w Europie w latach 2020-2100",
        y = "Populacja w milionach") +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
         panel.grid.major.y = element_blank(),
