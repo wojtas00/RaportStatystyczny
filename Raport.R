@@ -59,6 +59,11 @@ dat2100 = filter(dat2100, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2100 = filter(dat2100, sex == "T")
 
 
+# procentowy wzrost 2020/2100
+pop_2100 = dat2100$values
+sp_wzr_20_100 = round(100 - (pop_2020/pop_2100 * 100), 2)
+ramka_sp_wzr_20_100 = cbind(kraj_id, sp_wzr_20_100)
+
 
 kraj_id = dat2020$geo
 
@@ -66,34 +71,27 @@ kraj_id = dat2020$geo
 pop_2020 = dat2020$values
 pop_2050 = dat2050$values
 zmiana20_50 = round(100 - (pop_2020/pop_2050 * 100), 2)
-ramka_zmiana20_50 = as.data.frame(cbind(kraj_id, as.numeric(zmiana20_50)))
+ramka_zmiana20_50 = as.data.frame(cbind(kraj_id, zmiana20_50))
 
-# procentowy wzrost 2020/2100
-pop_2100 = dat2100$values
-sp_wzr_20_100 = round(100 - (pop_2020/pop_2100 * 100), 2)
-ramka_sp_wzr_20_100 = cbind(kraj_id, sp_wzr_20_100)
 
 # wykres wzrost/spadek 2050
 
 library(ggplot2)
 theme_set(theme_bw())
 
-  wykres2050 = ggplot(ramka_sp_wzr_20_50.df, aes(x=kraj_id, y=sp_wzr_20_50, label=sp_wzr_20_50)) + 
+  wykres2050 = ggplot(ramka_zmiana20_50, aes(x=kraj_id, y=zmiana20_50, label=zmiana20_50)) + 
   geom_point(stat='identity', fill="black")  +
   geom_segment(aes(y = 0, 
                    x = kraj_id, 
-                   yend = sp_wzr_20_50, 
+                   yend = zmiana20_50, 
                    xend = kraj_id), 
                color = "black") +
   geom_text(color="white", size=2) +
   labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2050") + 
   coord_flip()
+wykres2050
 
-  wykres2050
 
-  
-  ramka_sp_wzr_20_50.df = as.data.frame(ramka_sp_wzr_20_50)
-  sp_wzr_2050 = as.numeric(sp_wzr_20_50)
   
   sort2050 = arrange(ramka_sp_wzr_20_50.df(as.numeric(sp_wzr_20_50)))
 
