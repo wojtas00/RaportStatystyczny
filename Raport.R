@@ -114,6 +114,63 @@ wykres2100 = ggplot(sort2100, aes(x = reorder(`kraj_id`, zmiana20_100),
 wykres2100
 
 
+###### odchylenie standardowe procentowego wzrostu/spadku
+
+pop_2020 = dat2020$values
+pop_2030 = dat2030$values
+pop_2040 = dat2040$values
+pop_2050 = dat2050$values
+pop_2060 = dat2060$values
+pop_2070 = dat2070$values
+pop_2080 = dat2080$values
+pop_2090 = dat2090$values
+pop_2100 = dat2100$values
+
+
+odchylenie = function(rok_a, rok_b) {
+  zmiana = round(100 - (rok_a / rok_b * 100), 2)
+  okragl = sd(zmiana)
+  odchylenie = round(okragl, 2)
+  return(odchylenie)
+}
+od_st_2030 = odchylenie(pop_2020, pop_2030)
+od_st_2040 = odchylenie(pop_2030, pop_2040)
+od_st_2050 = odchylenie(pop_2040, pop_2050)
+od_st_2060 = odchylenie(pop_2050, pop_2060)
+od_st_2070 = odchylenie(pop_2060, pop_2070)
+od_st_2080 = odchylenie(pop_2070, pop_2080)
+od_st_2090 = odchylenie(pop_2080, pop_2090)
+od_st_2100 = odchylenie(pop_2090, pop_2100)
+
+## wykres
+
+odchylenie_ramka = data.frame(Rok = c(2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100),
+                              od_dla_lat = c(od_st_2030, od_st_2040, od_st_2050, od_st_2060,
+                                             od_st_2070, od_st_2080, od_st_2090, od_st_2100))
+
+ggplot(odchylenie_ramka, aes(x = Rok, y = od_dla_lat)) +
+  geom_line(stat = "identity", colour = "lightblue", size = 2) +
+  scale_y_continuous(limits = c(0, 10),
+                     breaks = c(2, 4, 6)) +
+  labs(title = "Zmiana odchylenia standardowego procentowego wzrostu/spadku",
+       y = "Odchylenie standardowe procentowego wzrostu/spadku") +
+  theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.title = element_text(size = 12),
+        plot.title = element_text(size = 18, hjust = 0.5)) +
+  geom_point(aes(x = Rok, y = od_dla_lat)) + 
+  geom_text(aes(label = od_dla_lat), hjust = 0.5, vjust = -1)                              
+
+
+## odchylenie standardowe procentowego wzrostu/spadku systematycznie spada co oznacza, ze
+## różnice wartosci procentowego wzrostu/spadku dla wszystkich krajów zmniejszaja sie, a co 
+## za tym idzie, jesli tendencja spadkowa utrzyma sie, os bedzie dazylo do 0 oraz sytuacja w 
+## przestanie sie tak gwaltownie zmieniac i zachdzace zmiany nie beda juz tak znaczace jak
+## w poprzednim stuleciu
+
+
+
 # Ogarnianie zmiany ilosci populacji w danych latach
 
 wyciag_danych = function(x) {
