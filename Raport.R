@@ -34,8 +34,8 @@ dat2040 = filter(dat2040, sex == "T")
 dat2050 = get_eurostat("tps00002", type = "code", filters = list(time = 2050), time_format = "num")
 dat2050 = filter(dat2050, geo != "EU27_2020", geo != "EA19", geo != "EL")
 dat2050 = filter(dat2050, sex == "T")
-
-
+x = mutate(dat2050, wartosc)
+x
 
 # Rok 2060
 dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), time_format = "num")
