@@ -16,43 +16,48 @@ summary(dat)
 
 
 # Rok 2020
-dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
-dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2020 = filter(dat2020, sex == "T")
+#dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+#dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2020 = filter(dat2020, sex == "T")
 # Rok 2030
-dat2030 = get_eurostat("tps00002", type = "code", filters = list(time = 2030), time_format = "num")
-dat2030 = filter(dat2030, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2030 = filter(dat2030, sex == "T")
+#dat2030 = get_eurostat("tps00002", type = "code", filters = list(time = 2030), time_format = "num")
+#dat2030 = filter(dat2030, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2030 = filter(dat2030, sex == "T")
 # Rok 2040
-dat2040 = get_eurostat("tps00002", type = "code", filters = list(time = 2040), time_format = "num")
-dat2040 = filter(dat2040, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2040 = filter(dat2040, sex == "T")
+#dat2040 = get_eurostat("tps00002", type = "code", filters = list(time = 2040), time_format = "num")
+#dat2040 = filter(dat2040, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2040 = filter(dat2040, sex == "T")
 # Rok 2050
-dat2050 = get_eurostat("tps00002", type = "code", filters = list(time = 2050), time_format = "num")
-dat2050 = filter(dat2050, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2050 = filter(dat2050, sex == "T")
+#dat2050 = get_eurostat("tps00002", type = "code", filters = list(time = 2050), time_format = "num")
+#dat2050 = filter(dat2050, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2050 = filter(dat2050, sex == "T")
 # Rok 2060
-dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), time_format = "num")
-dat2060 = filter(dat2060, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2060 = filter(dat2060, sex == "T")
+#dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), time_format = "num")
+#dat2060 = filter(dat2060, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2060 = filter(dat2060, sex == "T")
 # Rok 2070
-dat2070 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
-dat2070 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2070 = filter(dat2020, sex == "T")
+#dat2070 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+#dat2070 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2070 = filter(dat2020, sex == "T")
 # Rok 2080
-dat2080 = get_eurostat("tps00002", type = "code", filters = list(time = 2080), time_format = "num")
-dat2080 = filter(dat2080, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2080 = filter(dat2080, sex == "T")
+#dat2080 = get_eurostat("tps00002", type = "code", filters = list(time = 2080), time_format = "num")
+#dat2080 = filter(dat2080, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2080 = filter(dat2080, sex == "T")
 # Rok 2090
-dat2090 = get_eurostat("tps00002", type = "code", filters = list(time = 2090), time_format = "num")
-dat2090 = filter(dat2090, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2090 = filter(dat2090, sex == "T")
+#dat2090 = get_eurostat("tps00002", type = "code", filters = list(time = 2090), time_format = "num")
+#dat2090 = filter(dat2090, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2090 = filter(dat2090, sex == "T")
 # Rok 2100
-dat2100 = get_eurostat("tps00002", type = "code", filters = list(time = 2100), time_format = "num")
-dat2100 = filter(dat2100, geo != "EU27_2020", geo != "EA19", geo != "EL")
-dat2100 = filter(dat2100, sex == "T")
+#dat2100 = get_eurostat("tps00002", type = "code", filters = list(time = 2100), time_format = "num")
+#dat2100 = filter(dat2100, geo != "EU27_2020", geo != "EA19", geo != "EL")
+#dat2100 = filter(dat2100, sex == "T")
 
 #########################################################
+
+
+
+
+
 
 
 # procentowy wzrost/spadek 2020/2060
@@ -69,17 +74,16 @@ sort2060
 theme_set(theme_bw())
 
 wykres2060 = ggplot(sort2060, aes(x = reorder(`kraj_id`, zmiana20_60), 
-                                  y = zmiana20_60 , label = zmiana20_60)) + 
-  geom_point(stat ='identity', fill = "black", size = 8)  +
+                                  y=zmiana20_60, label=zmiana20_60)) + 
+  geom_point(stat='identity', fill="black", size = 8)  +
   geom_segment(aes(y = 0, 
                    x = `kraj_id`, 
                    yend = zmiana20_60, 
                    xend = `kraj_id`), 
                 color = "black") +
-  geom_text(color ="white", size =2) +
-  labs(title = "Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
-       subtitle = "Prognoza dla poszczególnych krajów",
-       y = "Procentowy spsadek/wzrost", x = "Kraj") + 
+  geom_text(color="white", size=2) +
+  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
+       subtitle = "Prognoza dla poszczególnych krajów") + 
   coord_flip()
 
 wykres2060
@@ -95,17 +99,16 @@ sort2100
 
 # wykres wzrost/spadek 2020/2100
 wykres2100 = ggplot(sort2100, aes(x = reorder(`kraj_id`, zmiana20_100), 
-                                  y = zmiana20_100, label = zmiana20_100)) + 
-  geom_point(stat ='identity', fill ="black", size = 8)  +
+                                  y=zmiana20_100, label=zmiana20_100)) + 
+  geom_point(stat='identity', fill="black", size = 8)  +
   geom_segment(aes(y = 0, 
                    x = `kraj_id`, 
                    yend = zmiana20_100, 
                    xend = `kraj_id`), 
                color = "black") +
-  geom_text(color ="white", size=2) +
-  labs(title ="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
-       subtitle = "Prognoza dla poszczególnych krajów",
-       y = "Procentowy spsadek/wzrost", x = "Kraj") + 
+  geom_text(color="white", size=2) +
+  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
+       subtitle = "Prognoza dla poszczególnych krajów") + 
   coord_flip()
 
 wykres2100
@@ -189,7 +192,7 @@ ggplot(Dane_Polski, aes(x = Rok, y = Populacja)) +
   geom_line(stat = "identity", colour = "lightblue", size = 2) +
   scale_y_continuous(limits = c(10, 60),
                      breaks = c(15, 30)) +
-  labs(title = "Zmiana liczby ludnosci w Polsce w latach 2020-2100",
+  labs(title = "Zmiana liczby ludnosci w Europie w latach 2020-2100",
        y = "Populacja w milionach") +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
         panel.grid.major.y = element_blank(),
