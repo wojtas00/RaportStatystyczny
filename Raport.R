@@ -69,16 +69,17 @@ sort2060
 theme_set(theme_bw())
 
 wykres2060 = ggplot(sort2060, aes(x = reorder(`kraj_id`, zmiana20_60), 
-                                  y=zmiana20_60, label=zmiana20_60)) + 
-  geom_point(stat='identity', fill="black", size = 8)  +
+                                  y = zmiana20_60 , label = zmiana20_60)) + 
+  geom_point(stat ='identity', fill = "black", size = 8)  +
   geom_segment(aes(y = 0, 
                    x = `kraj_id`, 
                    yend = zmiana20_60, 
                    xend = `kraj_id`), 
                 color = "black") +
-  geom_text(color="white", size=2) +
-  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
-       subtitle = "Prognoza dla poszczególnych krajów") + 
+  geom_text(color ="white", size =2) +
+  labs(title = "Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
+       subtitle = "Prognoza dla poszczególnych krajów",
+       y = "Procentowy spsadek/wzrost", x = "Kraj") + 
   coord_flip()
 
 wykres2060
@@ -94,16 +95,17 @@ sort2100
 
 # wykres wzrost/spadek 2020/2100
 wykres2100 = ggplot(sort2100, aes(x = reorder(`kraj_id`, zmiana20_100), 
-                                  y=zmiana20_100, label=zmiana20_100)) + 
-  geom_point(stat='identity', fill="black", size = 8)  +
+                                  y = zmiana20_100, label = zmiana20_100)) + 
+  geom_point(stat ='identity', fill ="black", size = 8)  +
   geom_segment(aes(y = 0, 
                    x = `kraj_id`, 
                    yend = zmiana20_100, 
                    xend = `kraj_id`), 
                color = "black") +
-  geom_text(color="white", size=2) +
-  labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
-       subtitle = "Prognoza dla poszczególnych krajów") + 
+  geom_text(color ="white", size=2) +
+  labs(title ="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
+       subtitle = "Prognoza dla poszczególnych krajów",
+       y = "Procentowy spsadek/wzrost", x = "Kraj") + 
   coord_flip()
 
 wykres2100
@@ -187,7 +189,7 @@ ggplot(Dane_Polski, aes(x = Rok, y = Populacja)) +
   geom_line(stat = "identity", colour = "lightblue", size = 2) +
   scale_y_continuous(limits = c(10, 60),
                      breaks = c(15, 30)) +
-  labs(title = "Zmiana liczby ludnosci w Europie w latach 2020-2100",
+  labs(title = "Zmiana liczby ludnosci w Polsce w latach 2020-2100",
        y = "Populacja w milionach") +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
         panel.grid.major.y = element_blank(),
