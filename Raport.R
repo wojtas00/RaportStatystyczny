@@ -99,6 +99,10 @@ icons = axis_canvas(wykres2060, axis = "y") +
 
 
 # procentowy wzrost/spadek 2020/2100
+dane = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
+dane = filter(dane, geo != "EU27_2020", geo != "EA19", geo != "EL")
+dane = filter(dane, sex == "T")
+kraj_id = dane$geo
 
 zmiana20_100 = round(100 - (pop_2020/pop_2100 * 100), 2)
 test = data.frame(kraj_id, zmiana20_100)
@@ -112,6 +116,7 @@ EU_20_21 = 100 - (EU_2100 / EU_2020 * 100)
 EU_20_21
 
 # wykres wzrost/spadek 2020/2100
+
 wykres2100 = ggplot(sort2100, aes(x = reorder(`kraj_id`, zmiana20_100), 
                                   y=zmiana20_100, label=zmiana20_100)) + 
   geom_point(stat='identity', fill="black", size = 8)  +
@@ -122,10 +127,52 @@ wykres2100 = ggplot(sort2100, aes(x = reorder(`kraj_id`, zmiana20_100),
                color = "black") +
   geom_text(color="white", size=2) +
   labs(title="Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2100",
-       subtitle = "Prognoza dla poszczególnych krajów") + 
+       y = "Procentowy wskaznik dynamiki zmian",
+       x = "") + 
+  theme(plot.background = element_rect(fill = "grey90",),
+        axis.text.y = element_blank(),
+        plot.title = element_text(size = 18, hjust = 0.5)) +
   coord_flip()
 
 wykres2100
+
+
+a = 4.3
+icons = axis_canvas(wykres2100, axis = "y") +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_Latvia.svg/125px-Flag_of_Latvia.svg.png", y = -80.35, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Flag_of_Lithuania.svg/125px-Flag_of_Lithuania.svg.png", y = -80.35 + a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Romania.svg/125px-Flag_of_Romania.svg.png", y = -80.35 + 2*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Bulgaria.svg/125px-Flag_of_Bulgaria.svg.png", y = -80.35 + 3*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Croatia.svg/125px-Flag_of_Croatia.svg.png", y = -80.35 + 4*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/125px-Flag_of_Poland.svg.png", y = -80.35 + 5*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/125px-Flag_of_Portugal.svg.png", y = -80.35 + 6*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Flag_of_Slovakia.svg/125px-Flag_of_Slovakia.svg.png", y = -80.35 + 7*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/125px-Flag_of_Italy.svg.png", y = -80.35 + 8*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/125px-Flag_of_Finland.svg.png", y = -80.35 + 9*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Estonia.svg/125px-Flag_of_Estonia.svg.png", y = -80.35 + 10*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Flag_of_Hungary.svg/125px-Flag_of_Hungary.svg.png", y = -80.35 + 11*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Flag_of_Slovenia.svg/125px-Flag_of_Slovenia.svg.png", y = -80.35 + 12*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_Czech_Republic.svg/240px-Flag_of_the_Czech_Republic.svg.png", y = -80.35 + 13*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/125px-Flag_of_Spain.svg.png", y = -80.35 + 14*a, scale = 2, width = 0.7, height = 0.7) +     
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/125px-Flag_of_Germany.svg.png", y = -80.35 + 15*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Belgium.svg/125px-Flag_of_Belgium.svg.png", y = -80.35 + 16*a, scale = 2, width = 0.7, height = 0.9) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/125px-Flag_of_the_Netherlands.svg.png", y = -80.35 + 17*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/125px-Flag_of_France.svg.png", y = -80.35 + 18*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/125px-Flag_of_Austria.svg.png", y = -80.35 + 19*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/125px-Flag_of_Denmark.svg.png", y = -80.35 + 20*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Flag_of_Luxembourg.svg/125px-Flag_of_Luxembourg.svg.png", y = -80.35 + 21*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Cyprus.svg/125px-Flag_of_Cyprus.svg.png", y = -80.35 + 22*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Flag_of_Liechtenstein.svg/125px-Flag_of_Liechtenstein.svg.png", y = -80.35 + 23*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Norway.svg/125px-Flag_of_Norway.svg.png", y = -80.35 + 24*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Flag_of_Sweden.svg/125px-Flag_of_Sweden.svg.png", y = -80.35 + 25*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Flag_of_Ireland.svg/125px-Flag_of_Ireland.svg.png", y = -80.35 + 26*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/125px-Flag_of_Malta.svg.png", y = -80.35 + 27*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/125px-Flag_of_Switzerland.svg.png", y = -80.35 + 28*a, scale = 2, width = 0.7, height = 0.9) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Iceland.svg/125px-Flag_of_Iceland.svg.png", y = -80.35 + 29*a, scale = 2, width = 0.7, height = 0.7)
+(wykres2100 = ggdraw(insert_yaxis_grob(wykres2100, icons, position = "left")))
+
+
+
 
 
 ###### odchylenie standardowe procentowego wzrostu/spadku
@@ -144,9 +191,6 @@ od_st_2070 = odchylenie(pop_2060, pop_2070)
 od_st_2080 = odchylenie(pop_2070, pop_2080)
 od_st_2090 = odchylenie(pop_2080, pop_2090)
 od_st_2100 = odchylenie(pop_2090, pop_2100)
-
-
-
 
 
 ## wykres
