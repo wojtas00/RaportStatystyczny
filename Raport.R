@@ -4,55 +4,8 @@
 library(eurostat)
 library(dplyr)
 library(ggplot2)
-
-#dat = get_eurostat("tps00002", type = "code", filters = "none", time_format = "num")
-#dat = filter(dat, geo != "EU27_2020", geo != "EA19", geo != "EL")  
-#head(dat)
-
-# Ogolne dane przegladowe o dataset
-#label_eurostat_vars(dat)
-#str(dat)
-#summary(dat)
-
-
-# Rok 2020
-#dat2020 = get_eurostat("tps00002", type = "code", filters = list(time = 2020), time_format = "num")
-#dat2020 = filter(dat2020, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2020 = filter(dat2020, sex == "T")
-# Rok 2030
-#dat2030 = get_eurostat("tps00002", type = "code", filters = list(time = 2030), time_format = "num")
-#dat2030 = filter(dat2030, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2030 = filter(dat2030, sex == "T")
-# Rok 2040
-#dat2040 = get_eurostat("tps00002", type = "code", filters = list(time = 2040), time_format = "num")
-#dat2040 = filter(dat2040, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2040 = filter(dat2040, sex == "T")
-# Rok 2050
-#dat2050 = get_eurostat("tps00002", type = "code", filters = list(time = 2050), time_format = "num")
-#dat2050 = filter(dat2050, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2050 = filter(dat2050, sex == "T")
-# Rok 2060
-#dat2060 = get_eurostat("tps00002", type = "code", filters = list(time = 2060), time_format = "num")
-#dat2060 = filter(dat2060, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2060 = filter(dat2060, sex == "T")
-# Rok 2070
-#dat2070 = get_eurostat("tps00002", type = "code", filters = list(time = 2070), time_format = "num")
-#dat2070 = filter(dat2070, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2070 = filter(dat2070, sex == "T")
-# Rok 2080
-#dat2080 = get_eurostat("tps00002", type = "code", filters = list(time = 2080), time_format = "num")
-#dat2080 = filter(dat2080, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2080 = filter(dat2080, sex == "T")
-# Rok 2090
-#dat2090 = get_eurostat("tps00002", type = "code", filters = list(time = 2090), time_format = "num")
-#dat2090 = filter(dat2090, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2090 = filter(dat2090, sex == "T")
-# Rok 2100
-#dat2100 = get_eurostat("tps00002", type = "code", filters = list(time = 2100), time_format = "num")
-#dat2100 = filter(dat2100, geo != "EU27_2020", geo != "EA19", geo != "EL")
-#dat2100 = filter(dat2100, sex == "T")
-
-#########################################################
+library(cowplot)
+library(magick)
 
 # dane
 
@@ -91,7 +44,6 @@ EU_20_60
 
 
 # wykres wzrost/spadek 2020/2060
-theme_set(theme_bw())
 
 wykres2060 = ggplot(sort2060, aes(x = reorder(`kraj_id`, zmiana20_60), 
                                   y=zmiana20_60, label = zmiana20_60)) + 
@@ -101,14 +53,48 @@ wykres2060 = ggplot(sort2060, aes(x = reorder(`kraj_id`, zmiana20_60),
                    yend = zmiana20_60, 
                    xend = `kraj_id`), 
                 color = "black") +
-  geom_text(color="white", size=2) +
+  geom_text(color="white", size = 2) +
   labs(title = "Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
        subtitle = "Prognoza dla poszczególnych krajów",
        y = "Procentowy wskaznik dynamiki zmian",
-       x = "") + 
+       x = "") +
+  theme(axis.text.y = element_blank(),
+        plot.background = element_rect(fill = "grey90")) +
   coord_flip()
 
-wykres2060
+a = 2.90
+icons = axis_canvas(wykres2060, axis = "y") +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Flag_of_Latvia.svg/125px-Flag_of_Latvia.svg.png", y = -52.3, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Flag_of_Lithuania.svg/125px-Flag_of_Lithuania.svg.png", y = -49.5, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Romania.svg/125px-Flag_of_Romania.svg.png", y = -52.3 + 2*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Bulgaria.svg/125px-Flag_of_Bulgaria.svg.png", y = -52.3 + 3*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Croatia.svg/125px-Flag_of_Croatia.svg.png", y = -52.3 + 4*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Flag_of_Poland.svg/125px-Flag_of_Poland.svg.png", y = -52.3 + 5*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Flag_of_Portugal.svg/125px-Flag_of_Portugal.svg.png", y = -52.3 + 6*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Flag_of_Slovakia.svg/125px-Flag_of_Slovakia.svg.png", y = -52.3 + 7*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Flag_of_Estonia.svg/125px-Flag_of_Estonia.svg.png", y = -52.3 + 8*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/125px-Flag_of_Italy.svg.png", y = -52.3 + 9*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Flag_of_Finland.svg/125px-Flag_of_Finland.svg.png", y = -52.3 + 10*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Flag_of_Hungary.svg/125px-Flag_of_Hungary.svg.png", y = -52.3 + 11*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Flag_of_Slovenia.svg/125px-Flag_of_Slovenia.svg.png", y = -52.3 + 12*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Flag_of_the_Czech_Republic.svg/240px-Flag_of_the_Czech_Republic.svg.png", y = -52.3 + 13*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/125px-Flag_of_Germany.svg.png", y = -52.3 + 14*a, scale = 2, width = 0.7, height = 0.7) +     
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/125px-Flag_of_Spain.svg.png", y = -52.3 + 15*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Belgium.svg/125px-Flag_of_Belgium.svg.png", y = -52.3 + 16*a, scale = 2, width = 0.7, height = 0.85) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Flag_of_the_Netherlands.svg/125px-Flag_of_the_Netherlands.svg.png", y = -52.3 + 17*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/125px-Flag_of_France.svg.png", y = -52.3 + 18*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Flag_of_Austria.svg/125px-Flag_of_Austria.svg.png", y = -52.3 + 19*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Flag_of_Denmark.svg/125px-Flag_of_Denmark.svg.png", y = -52.3 + 20*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Flag_of_Liechtenstein.svg/125px-Flag_of_Liechtenstein.svg.png", y = -52.3 + 21*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Switzerland.svg/125px-Flag_of_Switzerland.svg.png", y = -52.3 + 22*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Cyprus.svg/125px-Flag_of_Cyprus.svg.png", y = -52.3 + 23*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Norway.svg/125px-Flag_of_Norway.svg.png", y = -52.3 + 24*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Flag_of_Sweden.svg/125px-Flag_of_Sweden.svg.png", y = -52.3 + 25*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Flag_of_Luxembourg.svg/125px-Flag_of_Luxembourg.svg.png", y = -52.3 + 26*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Flag_of_Ireland.svg/125px-Flag_of_Ireland.svg.png", y = -52.3 + 27*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Flag_of_Malta.svg/125px-Flag_of_Malta.svg.png", y = -52.3 + 28*a, scale = 2, width = 0.7, height = 0.7) +
+  draw_image("https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Flag_of_Iceland.svg/125px-Flag_of_Iceland.svg.png", y = -52.3 + 29*a, scale = 2, width = 0.7, height = 0.7) 
+(wykres2060 = ggdraw(insert_yaxis_grob(wykres2060, icons, position = "left")))
 
 
 
