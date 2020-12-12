@@ -1,0 +1,43 @@
+---
+title: "Analiza prognozowanych zmian demograficznych w wybranych krajach Europy w latach 2020-2100"
+author: "Wojciech Jankowiak, Bartłomiej Michalak"
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1 Wprowadzenie
+
+Zmiany demograrficzne są obecnie jednym z większych problemów współczesnego świata.
+Zmieniająca się wielkość populacji powoduję w państwach zmiany takie jak ożywienie 
+lub kryzys gospodarczy, warunki życia, odmładzanie lub starzenie się społeczeństwa -> zapaść
+systemów emerytalnych, czy zmiany na rynku pracy. 
+Zmiany liczby ludności zależą od wielu czynników, m.in migracje ludności, ubytek naturalny,
+dzietność kobiet. Dzięki prognozom zmian demograficznych jesteśmy w stanie, chociażby 
+w najmniejszym stopniu, przygotować się się na zmiany lub możliwie jak najbardziej zmienić 
+prognozę na naszą korzyść.
+
+Celem naszej analizy jest opisanie charakterystyki prognoz zmian demograficznych w wybranych
+europejskich krajach, scharakteryzowanie prognoz dla Polski na tle pozostałych państw oraz
+prognozy dla całej Europy. Analizę przeprowadzimy na podstawie danych z eurostatu.
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
