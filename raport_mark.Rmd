@@ -406,8 +406,7 @@ ggplot(Liczba_ludnosci_EU, aes(x = Rok, y = populacja)) +
   geom_line(stat = "identity", colour = "lightblue", size = 2) +
   scale_y_continuous(limits = c(300, 550),
                      breaks = c(300, 450, 600)) +
-  labs(title = "Zmiana liczby ludnosci w Europie w latach 2020-2100",
-       y = "Populacja w milionach") +
+  labs(y = "Populacja w milionach") +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
         panel.grid.major.y = element_blank(),
         panel.grid.minor.y = element_blank(),
@@ -416,3 +415,12 @@ ggplot(Liczba_ludnosci_EU, aes(x = Rok, y = populacja)) +
   geom_point(aes(x = Rok, y = populacja)) + 
   geom_text(aes(label=populacja), hjust = 0.5, vjust = -1)
 ```
+*Ryc.5. Zmiany demograficzne w Europie w latach 2020-2100*
+
+## 9 Podsumowanie
+Przeprowadzona przez nas analiza prognoz zmian demograficznych, które mają mieć miejsce
+w XXIw. w Europie pokazała nam, że najbliższe 10-lecia będą miały ujemne przyrosty rzeczywiste.
+Kontynent europejski zmniejszy swoją populację o 5,52 % do 2100 roku względem roku 2020.
+W ciągu najbliższych 80 lat populacja analizowanychh państw zmniejszy się o nieco ponad 23 miliony.
+Ponadto, doszliśmy do wniosku, że zmiany demograficzne będą z biegiem czasu malały.
+Polska XXIw. zakończy z populacją około 28 milionów, co jest wynikiem o około 10 milionów niższym wzgledem roku 2020. 
