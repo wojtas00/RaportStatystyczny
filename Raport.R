@@ -53,7 +53,7 @@ wykres2060 = ggplot(sort2060, aes(x = reorder(`kraj_id`, zmiana20_60),
                    yend = zmiana20_60, 
                    xend = `kraj_id`), 
                 color = "black") +
-  geom_text(color="white", size = 2) +
+  geom_text(color = "white", size = 2) +
   labs(title = "Procentowy prognozowany spadek/wzrost populacji miedzy 2020 i 2060",
        subtitle = "Prognoza dla poszczególnych krajów",
        y = "Procentowy wskaznik dynamiki zmian",
@@ -202,7 +202,7 @@ odchylenie_ramka = data.frame(Rok = c(2030, 2040, 2050, 2060, 2070, 2080, 2090, 
 ggplot(odchylenie_ramka, aes(x = Rok, y = od_dla_lat)) +
   geom_line(stat = "identity", colour = "lightblue", size = 2) +
   scale_y_continuous(limits = c(0, 10),
-                     breaks = c(2, 4, 6)) +
+                     breaks = c(2, 4, 6, 8)) +
   labs(title = "Zmiana odchylenia standardowego procentowego wzrostu/spadku",
        y = "Odchylenie standardowe procentowego wzrostu/spadku") +
   theme(panel.background = element_rect(fill = "white", colour = "grey50"),  
