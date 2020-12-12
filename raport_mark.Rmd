@@ -9,7 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 1 Wprowadzenie
+## 1. Wprowadzenie
+
 
 Zmiany demograrficzne są obecnie jednym z większych problemów współczesnego świata.
 Zmieniająca się wielkość populacji powoduję w państwach zmiany takie jak ożywienie 
@@ -25,19 +26,9 @@ europejskich krajach, scharakteryzowanie prognoz dla Polski na tle pozostałych 
 prognozy dla całej Europy. Analizę przeprowadzimy na podstawie danych z eurostatu.
 
 
-```{r cars}
-summary(cars)
-```
+## 2. Dane
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Przeprowadzona przez nas analiza opiera
 
 
 
